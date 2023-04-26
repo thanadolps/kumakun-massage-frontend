@@ -1,3 +1,9 @@
+type ResultResponse<T, E = never> =
+  | ({
+      success: false;
+    } & E)
+  | ({ success: true } & T);
+
 type RegisterRequest = {
   name: string;
   email: string;

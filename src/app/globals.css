@@ -380,3 +380,8 @@ footer {
     transform: translateY(0px);
   }
 }
+
+/* New stuff */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
