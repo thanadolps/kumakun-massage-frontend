@@ -8,6 +8,7 @@ type MassageShop = {
 };
 
 type ReservationRequest = {
+  massageShopId: string;
   name: string;
   address: string;
   tel: string;

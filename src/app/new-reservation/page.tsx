@@ -2,11 +2,7 @@ import { FaQuestionCircle } from "react-icons/fa";
 import shopService from "../../../features/reservation/shopService";
 import Card from "./card";
 
-export default async function NewTicket({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default async function NewTicket() {
   const shops = await shopService.getAllMassageShops();
 
   return (
@@ -27,7 +23,6 @@ export default async function NewTicket({
           ))}
         </div>
       </main>
-      {children}
     </>
   );
 }

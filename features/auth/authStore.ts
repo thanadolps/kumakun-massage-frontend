@@ -26,7 +26,7 @@ export async function register(user: RegisterRequest) {
   authStore.isLoading = true;
 
   try {
-    authStore.user = await authService.register(user);
+    authStore.user = (await authService.register(user)).token;
     authStore.isLoading = false;
     authStore.isSuccess = true;
   } catch (error) {
@@ -44,7 +44,7 @@ export async function login(user: LoginRequest) {
   authStore.isLoading = true;
 
   try {
-    authStore.user = await authService.login(user);
+    authStore.user = (await authService.login(user)).token;
     authStore.isLoading = false;
     authStore.isSuccess = true;
   } catch (error) {

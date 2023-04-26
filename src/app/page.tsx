@@ -11,11 +11,11 @@ export default function Home() {
         <h1>KumaKun: A Massage Reservation System</h1>
         <p>Please choose from an option below</p>
       </section>
-      <Link href="/new-ticket" className="btn btn-reverse btn-block">
+      <Link href="/new-reservation" className="btn btn-reverse btn-block">
         <FaQuestionCircle />
         Create New Reservation
       </Link>
-      <Link href="/tickets" className="btn btn-block">
+      <Link href="/reservations" className="btn btn-block">
         <FaTicketAlt />
         View My Reservation
       </Link>
