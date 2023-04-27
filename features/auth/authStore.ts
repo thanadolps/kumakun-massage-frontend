@@ -1,7 +1,7 @@
 "use client";
 
+import { map } from "nanostores";
 import authService from "./authService";
-import { proxy } from "valtio";
 
 type State = {
   user: string | null | RegisterResponse | LoginResponse;
@@ -21,56 +21,78 @@ const initialState: State = {
   message: "",
 };
 
-export const authStore = proxy(initialState);
+export const authStore = map(initialState);
 
 export async function register(user: RegisterRequest) {
   console.log("Registering user = ", user);
-  authStore.isLoading = true;
+  authStore.setKey("isLoading", true);
 
   try {
-    authStore.user = (await authService.register(user)).token;
-    authStore.isLoading = false;
-    authStore.isSuccess = true;
+    const token = (await authService.register(user)).token;
+    authStore.set({
+      ...authStore.get(),
+      user: token,
+      isLoading: false,
+      isSuccess: true,
+    });
   } catch (error) {
     const message = errorMessage(error);
 
-    authStore.isLoading = false;
-    authStore.isError = true;
-    authStore.message = message;
-    authStore.user = null;
+    authStore.set({
+      ...authStore.get(),
+      isLoading: false,
+      isError: true,
+      message,
+      user: null,
+    });
   }
 }
 
 export async function login(user: LoginRequest) {
   console.log("Login user = ", user);
-  authStore.isLoading = true;
+  authStore.setKey("isLoading", true);
 
   try {
-    authStore.user = (await authService.login(user)).token;
-    authStore.isLoading = false;
-    authStore.isSuccess = true;
+    const token = (await authService.login(user)).token;
+    authStore.set({
+      ...authStore.get(),
+      user: token,
+      isLoading: false,
+      isSuccess: true,
+    });
   } catch (error) {
     const message = errorMessage(error);
-    authStore.isLoading = false;
-    authStore.isError = true;
-    authStore.message = message;
-    authStore.user = null;
+    authStore.set({
+      ...authStore.get(),
+      isLoading: false,
+      isError: true,
+      message,
+      user: null,
+    });
   }
 }
 
 export async function logout() {
-  authStore.isLoading = true;
+  authStore.setKey("isLoading", true);
+
   await authService.logout();
-  authStore.isLoading = false;
-  authStore.isSuccess = true;
-  authStore.user = null;
+
+  authStore.set({
+    ...authStore.get(),
+    user: null,
+    isLoading: false,
+    isSuccess: true,
+  });
 }
 
 export function reset() {
-  authStore.isError = false;
-  authStore.isSuccess = false;
-  authStore.isLoading = false;
-  authStore.message = "";
+  authStore.set({
+    ...authStore.get(),
+    isError: false,
+    isSuccess: false,
+    isLoading: false,
+    message: "",
+  });
 }
 
 function errorMessage(error: any): string {

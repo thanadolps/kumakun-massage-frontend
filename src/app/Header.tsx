@@ -3,14 +3,14 @@
 import Link from "next/link";
 import { FaCalendar, FaSignInAlt, FaSignOutAlt, FaUser } from "react-icons/fa";
 import { useRouter } from "next/navigation";
-import { useSnapshot } from "valtio";
+import { useStore } from "@nanostores/react";
 import { authStore, logout, reset } from "../../features/auth/authStore";
 import axios from "axios";
 import scheduleService from "../../features/reservation/schedule";
 
 export default function Header() {
   const router = useRouter();
-  const { user } = useSnapshot(authStore);
+  const { user } = useStore(authStore);
   const onLogout = async () => {
     await logout();
     await reset();

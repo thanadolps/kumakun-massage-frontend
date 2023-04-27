@@ -1,13 +1,13 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useSnapshot } from "valtio";
 import { authStore, reset } from "../../../features/auth/authStore";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { register } from "../../../features/auth/authStore";
 import { FaUser } from "react-icons/fa";
+import { useStore } from "@nanostores/react";
 
 type FormData = {
   name: string;
@@ -20,8 +20,7 @@ type FormData = {
 
 export default function Register() {
   const router = useRouter();
-  const { user, isLoading, isError, isSuccess, message } =
-    useSnapshot(authStore);
+  const { user, isLoading, isError, isSuccess, message } = useStore(authStore);
   useEffect(() => {
     if (isError) {
       toast.error(message);

@@ -6,13 +6,12 @@ import { FaSignInAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useSnapshot } from "valtio";
 import { authStore, login, reset } from "../../../features/auth/authStore";
+import { useStore } from "@nanostores/react";
 
 export default function Login() {
   const router = useRouter();
-  const { user, isLoading, isError, isSuccess, message } =
-    useSnapshot(authStore);
+  const { user, isLoading, isError, isSuccess, message } = useStore(authStore);
 
   useEffect(() => {
     if (isError) {

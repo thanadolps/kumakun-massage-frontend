@@ -4,6 +4,9 @@ dependencies:
   '@headlessui/react':
     specifier: ^1.7.14
     version: 1.7.14(react-dom@18.2.0)(react@18.2.0)
+  '@nanostores/react':
+    specifier: ^0.5.0
+    version: 0.5.0(nanostores@0.8.1)(react@18.2.0)
   '@types/node':
     specifier: 18.16.0
     version: 18.16.0
@@ -22,6 +25,9 @@ dependencies:
   eslint-config-next:
     specifier: 13.3.1
     version: 13.3.1(eslint@8.39.0)(typescript@5.0.4)
+  nanostores:
+    specifier: ^0.8.1
+    version: 0.8.1
   next:
     specifier: 13.3.1
     version: 13.3.1(react-dom@18.2.0)(react@18.2.0)
@@ -49,9 +55,6 @@ dependencies:
   typescript:
     specifier: 5.0.4
     version: 5.0.4
-  valtio:
-    specifier: ^1.10.4
-    version: 1.10.4(react@18.2.0)
 
 devDependencies:
   autoprefixer:
@@ -183,6 +186,18 @@ packages:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
+
+  /@nanostores/react@0.5.0(nanostores@0.8.1)(react@18.2.0):
+    resolution: {integrity: sha512-1i+VhIwK+R51RXmnLul/C7a2WYkBF17/KsHsPzIboMXVjKfUvPbViZrwaeiqLFyHFUPgylq2//VkPqx3wmiCeg==}
+    engines: {node: ^16.0.0 || >=18.0.0}
+    peerDependencies:
+      nanostores: ^0.8.0
+      react: '>=18.0.0'
+    dependencies:
+      nanostores: 0.8.1
+      react: 18.2.0
+      use-sync-external-store: 1.2.0(react@18.2.0)
+    dev: false
 
   /@next/env@13.3.1:
     resolution: {integrity: sha512-EDtCoedIZC7JlUQ3uaQpSc4aVmyhbLHmQVALg7pFfQgOTjgSnn7mKtA0DiCMkYvvsx6aFb5octGMtWrOtGXW9A==}
@@ -1840,6 +1855,11 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
+  /nanostores@0.8.1:
+    resolution: {integrity: sha512-1ZCfQtII2XeFDrtqXL2cdQ/diGrLxzRB3YMyQjn8m7GSGQrJfGST2iuqMpWnS/ZlifhtjgR/SX0Jy6Uij6lRLA==}
+    engines: {node: ^16.0.0 || >=18.0.0}
+    dev: false
+
   /natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: false
@@ -2148,10 +2168,6 @@ packages:
       loose-envify: 1.4.0
       object-assign: 4.1.1
       react-is: 16.13.1
-    dev: false
-
-  /proxy-compare@2.5.0:
-    resolution: {integrity: sha512-f1us0OsVAJ3tdIMXGQx2lmseYS4YXe4W+sKF5g5ww/jV+5ogMadPt+sIZ+88Ga9kvMJsrRNWzCrKPpr6pMWYbA==}
     dev: false
 
   /proxy-from-env@1.1.0:
@@ -2655,20 +2671,6 @@ packages:
   /util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
     dev: true
-
-  /valtio@1.10.4(react@18.2.0):
-    resolution: {integrity: sha512-gqGWh0DjtDMAy8Jaui8ufFoxlQB1k1NiA/QHrpKoTUk9EeY331WKeYhvtGn1u703RcefrDCez7PT+qeCu9lWEw==}
-    engines: {node: '>=12.20.0'}
-    peerDependencies:
-      react: '>=16.8'
-    peerDependenciesMeta:
-      react:
-        optional: true
-    dependencies:
-      proxy-compare: 2.5.0
-      react: 18.2.0
-      use-sync-external-store: 1.2.0(react@18.2.0)
-    dev: false
 
   /which-boxed-primitive@1.0.2:
     resolution: {integrity: sha512-bwZdv0AKLpplFY2KZRX6TvyuN7ojjr7lwkg6ml0roIy9YeuSr7JS372qlNW18UQYzgYK9ziGcerWqZOmEn9VNg==}

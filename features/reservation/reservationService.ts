@@ -7,7 +7,7 @@ const getAllReservations = async () => {
     ResultResponse<{ count: number; data: ReservationResponse[] }>
   >(API_URL, {
     headers: {
-      Authorization: `Bearer ${authStore.user}`,
+      Authorization: `Bearer ${authStore.get().user}`,
     },
   });
   return response.data;

@@ -20,11 +20,11 @@ export default function ReservationForm(props: { shopId: string }) {
     console.log(data);
     try {
       await shopService.makeReservation(data);
+      toast.success("Reservation created successfully");
+      router.push("/new-reservation");
     } catch (e) {
       toast.error(e.response.data.message);
     }
-    toast.success("Reservation created successfully");
-    router.push("/new-reservation");
   };
 
   return (

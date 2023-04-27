@@ -6,7 +6,7 @@ const getSchedule = async () => {
   const response = await axios.get(API_URL, {
     responseType: "blob",
     headers: {
-      Authorization: `Bearer ${authStore.user}`,
+      Authorization: `Bearer ${authStore.get().user}`,
     },
   });
   return response.data;

@@ -27,7 +27,7 @@ const makeReservation = async (reservation: ReservationRequest) => {
     },
     {
       headers: {
-        Authorization: `Bearer ${authStore.user}`,
+        Authorization: `Bearer ${authStore.get().user}`,
       },
     }
   );
