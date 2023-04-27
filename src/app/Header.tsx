@@ -1,10 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { FaSignInAlt, FaSignOutAlt, FaUser } from "react-icons/fa";
+import { FaCalendar, FaSignInAlt, FaSignOutAlt, FaUser } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { useSnapshot } from "valtio";
 import { authStore, logout, reset } from "../../features/auth/authStore";
+import axios from "axios";
+import scheduleService from "../../features/reservation/schedule";
 
 export default function Header() {
   const router = useRouter();
@@ -22,12 +24,19 @@ export default function Header() {
       </div>
       <ul>
         {user ? (
-          <li>
-            <button className="btn" onClick={onLogout}>
-              <FaSignOutAlt />
-              Logout
-            </button>
-          </li>
+          <>
+            <li>
+              <button onClick={scheduleService.downloadSchedule}>
+                <FaCalendar />
+              </button>
+            </li>
+            <li>
+              <button className="btn" onClick={onLogout}>
+                <FaSignOutAlt />
+                Logout
+              </button>
+            </li>
+          </>
         ) : (
           <>
             <li>
