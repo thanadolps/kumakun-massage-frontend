@@ -4,6 +4,8 @@ import { FaQuestionCircle } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import reservationService from "../../../../features/reservation/reservationService";
 import { useRouter } from "next/navigation";
+import shopService from "../../../../features/reservation/shopService";
+import { toast } from "react-toastify";
 
 export default function ReservationForm(props: { shopId: string }) {
   const router = useRouter();
@@ -17,11 +19,12 @@ export default function ReservationForm(props: { shopId: string }) {
   const onSubmit = async (data: ReservationRequest) => {
     console.log(data);
     try {
-      // TODO: ask what to do here?
-      // console.log(await reservationService.makeReservation(data));
+      await shopService.makeReservation(data);
     } catch (e) {
-      console.log(e);
+      toast.error(e.response.data.message);
     }
+    toast.success("Reservation created successfully");
+    router.push("/new-reservation");
   };
 
   return (
@@ -36,62 +39,13 @@ export default function ReservationForm(props: { shopId: string }) {
         <form onSubmit={handleSubmit(onSubmit)}>
           <input hidden {...register("massageShopId")} value={props.shopId} />
           <div className="form-group">
-            <label htmlFor="name">Name</label>
+            <label htmlFor="datetime">Date Time</label>
             <input
-              type="text"
+              type="datetime-local"
               className="form-control"
-              id="name"
+              id="datetime"
               required
-              {...register("name", {
-                required: true,
-                maxLength: 50,
-              })}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="address">Address</label>
-            <input
-              type="text"
-              className="form-control"
-              id="address"
-              required
-              {...register("address", {
-                required: true,
-              })}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="tel">Tel</label>
-            <input
-              type="tel"
-              className="form-control"
-              id="tel"
-              required
-              {...register("tel", {
-                required: true,
-              })}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="opentime">Open Time</label>
-            <input
-              type="time"
-              className="form-control"
-              id="opentime"
-              required
-              {...register("opentime", {
-                required: true,
-              })}
-            />{" "}
-          </div>
-          <div className="form-group">
-            <label htmlFor="closetime">Close Time</label>
-            <input
-              type="time"
-              className="form-control"
-              id="closetime"
-              required
-              {...register("closetime", {
+              {...register("datetime", {
                 required: true,
               })}
             />

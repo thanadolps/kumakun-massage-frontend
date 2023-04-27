@@ -68,20 +68,6 @@ export default function Register() {
           <FaUser /> Register
         </h1>
         <p>Please create an account</p>
-
-        <code>
-          {JSON.stringify(
-            {
-              user,
-              isLoading,
-              isError,
-              isSuccess,
-              message,
-            },
-            null,
-            2
-          )}
-        </code>
       </section>
       <section className="form">
         <form onSubmit={handleSubmit(onSubmit)}>

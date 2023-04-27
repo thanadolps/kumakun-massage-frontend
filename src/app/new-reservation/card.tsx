@@ -3,6 +3,7 @@ import "./card.module.css";
 import Link from "next/link";
 
 export default function Card(props: {
+  href: string;
   shop: MassageShop;
   interactive?: boolean;
 }) {
@@ -11,7 +12,7 @@ export default function Card(props: {
 
   return (
     <Link
-      href={`/new-reservation/${shop.id}`}
+      href={props.href}
       className={
         "text-left border-2 border-gray-700 rounded-lg flex flex-col p-2 cursor-default" +
         (interactive

@@ -2,11 +2,10 @@ import axios from "axios";
 import { authStore } from "../auth/authStore";
 const API_URL = "http://localhost:5555/api/v1/reservations/";
 
-const makeReservation = async (reservation: ReservationRequest) => {
-  // TODO: WTF
-  const { massageShopId, ...rest } = reservation;
-
-  const response = await axios.post(API_URL + massageShopId, rest, {
+const getAllReservations = async () => {
+  const response = await axios.get<
+    ResultResponse<{ count: number; data: ReservationResponse[] }>
+  >(API_URL, {
     headers: {
       Authorization: `Bearer ${authStore.user}`,
     },
@@ -15,7 +14,7 @@ const makeReservation = async (reservation: ReservationRequest) => {
 };
 
 const reservationService = {
-  makeReservation,
+  getAllReservations,
 };
 
 export default reservationService;

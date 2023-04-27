@@ -14,7 +14,7 @@ export default async function Page({ params }: { params: ParsedUrlQuery }) {
       <h1 className="heading text-center h-full">Create New Reservation</h1>
 
       <section className="my-8">
-        <Card shop={shop} interactive={false} />
+        <Card shop={shop} interactive={false} href={`${shop.id}`} />
       </section>
 
       <section>

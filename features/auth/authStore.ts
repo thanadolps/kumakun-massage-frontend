@@ -1,3 +1,5 @@
+"use client";
+
 import authService from "./authService";
 import { proxy } from "valtio";
 

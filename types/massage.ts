@@ -9,9 +9,12 @@ type MassageShop = {
 
 type ReservationRequest = {
   massageShopId: string;
-  name: string;
-  address: string;
-  tel: string;
-  opentime: string;
-  closetime: string;
+  datetime: string;
+};
+
+type ReservationResponse = {
+  _id: string;
+  user: string;
+  massageShop: MassageShop;
+  datetime: string;
 };

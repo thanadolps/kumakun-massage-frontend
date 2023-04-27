@@ -19,7 +19,11 @@ export default async function NewTicket() {
 
         <div className="grid grid-cols-3 gap-4 px-4">
           {shops.data.map((shop) => (
-            <Card key={shop.id} shop={shop} />
+            <Card
+              key={shop.id}
+              shop={shop}
+              href={`/new-reservation/${shop.id}`}
+            />
           ))}
         </div>
       </main>
