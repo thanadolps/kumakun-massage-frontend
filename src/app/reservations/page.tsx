@@ -11,18 +11,26 @@ export default async function TicketPage() {
 
   return (
     <div>
-      <h1 className="heading">Reservations</h1>
-      <p>There are {count} reservations</p>
-      {JSON.stringify(reservations)}
+      <section>
+        <h1 className="heading">Reservations</h1>
+        <h2>
+          There are <b>{count}</b>/3 reservations
+        </h2>
+      </section>
 
-      {reservations.map((reservation) => (
-        <Card
-          key={reservation._id}
-          shop={reservation.massageShop}
-          href=""
-          interactive={false}
-        />
-      ))}
+      <section className="flex flex-col gap-4">
+        {reservations.map((reservation) => (
+          <div key={reservation._id}>
+            <span>@{reservation.datetime}</span>
+            <Card
+              shop={reservation.massageShop}
+              href=""
+              interactive={false}
+              actions={"awd"}
+            />
+          </div>
+        ))}
+      </section>
     </div>
   );
 }

@@ -6,6 +6,7 @@ export default function Card(props: {
   href: string;
   shop: MassageShop;
   interactive?: boolean;
+  actions?: React.ReactNode;
 }) {
   const { shop } = props;
   const interactive = props.interactive ?? true;
