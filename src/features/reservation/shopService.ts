@@ -1,6 +1,7 @@
 import axios from "axios";
+import authService from "../auth/authService";
 import { authStore } from "../auth/authStore";
-const API_URL = "http://localhost:5555/api/v1/massageShops/";
+const API_URL = `${import.meta.env.VITE_BACKEND_URL}/api/v1/massageShops/`;
 
 //Get all massage shops
 const getAllMassageShops = async () => {
@@ -26,9 +27,7 @@ const makeReservation = async (reservation: ReservationRequest) => {
       datetime,
     },
     {
-      headers: {
-        Authorization: `Bearer ${authStore.get().user}`,
-      },
+      headers: authService.authHeader(),
     }
   );
   return response.data;

@@ -1,6 +1,6 @@
 import Card from "../components/Card";
 import reservationService from "../features/reservation/reservationService";
-import { createMemo, createSignal, For, Suspense } from "solid-js";
+import { createMemo, createSignal, For, Show, Suspense } from "solid-js";
 
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
@@ -12,6 +12,7 @@ import {
 import toast from "solid-toast";
 import { useStore } from "@nanostores/solid";
 import { authStore } from "~/features/auth/authStore";
+import { A } from "solid-start";
 
 TimeAgo.addDefaultLocale(en);
 const timeAgo = new TimeAgo("en-US");
@@ -46,32 +47,44 @@ export default function ReservationPage() {
 
       <section class="flex flex-col gap-4 divide-y-4">
         <Suspense fallback={"Fetching Reservation..."}>
-          <For each={Array.from(groupedReservations().entries())}>
-            {([reserver, reservation]) => (
-              <div>
-                <h2 class="heading mb-0 pl-0 pb-2">
-                  {reserver === auth().user?._id
-                    ? "My Reservations"
-                    : `${reserver}.reservation`}{" "}
-                  <span class="font-normal">
-                    (
-                    <span
-                      class={reservation.length === 3 ? "text-red-400" : ""}
-                    >
-                      {reservation.length}/3
+          <Show
+            when={groupedReservations().size > 0}
+            fallback={
+              <span>
+                No reservation!{" "}
+                <A class="underline" href="/new-reservation">
+                  Go book one now!
+                </A>
+              </span>
+            }
+          >
+            <For each={Array.from(groupedReservations().entries())}>
+              {([reserver, reservation]) => (
+                <div>
+                  <h2 class="heading mb-0 pl-0 pb-2">
+                    {reserver === auth().user?._id
+                      ? "My Reservations"
+                      : `${reserver}.reservation`}{" "}
+                    <span class="font-normal">
+                      (
+                      <span
+                        class={reservation.length === 3 ? "text-red-400" : ""}
+                      >
+                        {reservation.length}/3
+                      </span>
+                      )
                     </span>
-                    )
-                  </span>
-                </h2>
+                  </h2>
 
-                <For each={reservation}>
-                  {(reservation) => (
-                    <ReservationBlock reservation={reservation} />
-                  )}
-                </For>
-              </div>
-            )}
-          </For>
+                  <For each={reservation}>
+                    {(reservation) => (
+                      <ReservationBlock reservation={reservation} />
+                    )}
+                  </For>
+                </div>
+              )}
+            </For>
+          </Show>
         </Suspense>
       </section>
     </div>

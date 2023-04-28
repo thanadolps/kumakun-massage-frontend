@@ -1,7 +1,6 @@
 import axios from "axios";
 import authService from "../auth/authService";
-import { authStore } from "../auth/authStore";
-const API_URL = "http://localhost:5555/api/v1/reservations/";
+const API_URL = `${import.meta.env.VITE_BACKEND_URL}/api/v1/reservations/`;
 
 const getAllReservations = async () => {
   const response = await axios.get<

@@ -50,6 +50,7 @@ export async function login(user: LoginRequest) {
 
   try {
     await authService.login(user);
+    console.log("LOGGING");
     authStore.set({
       ...authStore.get(),
       user: (await authService.getMe())?.data ?? null,

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { authStore } from "../auth/authStore";
-const API_URL = "http://localhost:5555/api/v1/calendar/";
+const API_URL = `${import.meta.env.VITE_BACKEND_URL}/api/v1/calendar/`;
 
 const getSchedule = async () => {
   const response = await axios.get(API_URL, {

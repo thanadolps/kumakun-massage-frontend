@@ -42,7 +42,7 @@ function ReservationForm(props: { shopId: string }) {
       try {
         await shopService.makeReservation(data);
         toast.success("Reservation created successfully");
-        navigate("/new-reservation");
+        navigate("/reservation");
       } catch (e) {
         console.error(e);
         toast.error(e.response.data.message || e.message);

@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = "http://localhost:5555/api/v1/auth/";
+const API_URL = `${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/`;
 
 //Register user
 const register = async (userData: RegisterRequest) => {
@@ -16,6 +16,7 @@ const register = async (userData: RegisterRequest) => {
 };
 //Login user
 const login = async (userData: LoginRequest) => {
+  console.log("GOTO", API_URL + "login");
   const response = await axios.post<LoginResponse>(API_URL + "login", userData);
   if (response.data) {
     //localStorage.setItem('user',JSON.stringify(response.data))
@@ -43,6 +44,8 @@ function authHeader(token?: string) {
 //Get me
 const getMe = async () => {
   const token = localStorage.getItem("user");
+  console.log(`Send ${token} to ${API_URL}me`);
+
   if (!token) {
     return null;
   }
