@@ -1,10 +1,8 @@
-"use client";
-
 import { map } from "nanostores";
 import authService from "./authService";
 
 type State = {
-  user: string | null;
+  user: UserData | null;
   isError: boolean;
   isSuccess: boolean;
   isLoading: boolean;
@@ -12,9 +10,7 @@ type State = {
 };
 
 const initialState: State = {
-  user:
-    (typeof window !== "undefined" && window.localStorage.getItem("user")) ||
-    null,
+  user: (await authService.getMe())?.data ?? null,
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -28,10 +24,10 @@ export async function register(user: RegisterRequest) {
   authStore.setKey("isLoading", true);
 
   try {
-    const token = (await authService.register(user)).token;
+    await authService.register(user);
     authStore.set({
       ...authStore.get(),
-      user: token,
+      user: (await authService.getMe())?.data ?? null,
       isLoading: false,
       isSuccess: true,
     });
@@ -53,10 +49,10 @@ export async function login(user: LoginRequest) {
   authStore.setKey("isLoading", true);
 
   try {
-    const token = (await authService.login(user)).token;
+    await authService.login(user);
     authStore.set({
       ...authStore.get(),
-      user: token,
+      user: (await authService.getMe())?.data ?? null,
       isLoading: false,
       isSuccess: true,
     });

@@ -1,12 +1,6 @@
 import Card from "../components/Card";
 import reservationService from "../features/reservation/reservationService";
-import {
-  createEffect,
-  createResource,
-  createSignal,
-  For,
-  Suspense,
-} from "solid-js";
+import { createMemo, createSignal, For, Suspense } from "solid-js";
 
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en";
@@ -16,6 +10,8 @@ import {
   useRouteData,
 } from "solid-start/data";
 import toast from "solid-toast";
+import { useStore } from "@nanostores/solid";
+import { authStore } from "~/features/auth/authStore";
 
 TimeAgo.addDefaultLocale(en);
 const timeAgo = new TimeAgo("en-US");
@@ -27,21 +23,54 @@ export function routeData() {
 export default function ReservationPage() {
   const responses = useRouteData<typeof routeData>();
   const reservations = () => responses()?.data ?? [];
+  const auth = useStore(authStore);
+
+  // Group reservations by user
+  const groupedReservations = createMemo(() => {
+    const grouped = new Map<string, ReservationResponse[]>();
+    reservations().forEach((reservation) => {
+      const key = reservation.user;
+      if (!grouped.has(key)) {
+        grouped.set(key, []);
+      }
+      grouped.get(key)?.push(reservation);
+    });
+    return grouped;
+  });
 
   return (
     <div class="p-6">
-      <section>
+      {/* <section>
         <h1 class="heading mb-0 pl-0">Reservations</h1>
-      </section>
+      </section> */}
 
-      <section class="flex flex-col gap-6">
+      <section class="flex flex-col gap-4 divide-y-4">
         <Suspense fallback={"Fetching Reservation..."}>
-          <h2 class="pb-4">
-            There are <b>{reservations().length}</b>/3 reservations
-          </h2>
+          <For each={Array.from(groupedReservations().entries())}>
+            {([reserver, reservation]) => (
+              <div>
+                <h2 class="heading mb-0 pl-0 pb-2">
+                  {reserver === auth().user?._id
+                    ? "My Reservations"
+                    : `${reserver}.reservation`}{" "}
+                  <span class="font-normal">
+                    (
+                    <span
+                      class={reservation.length === 3 ? "text-red-400" : ""}
+                    >
+                      {reservation.length}/3
+                    </span>
+                    )
+                  </span>
+                </h2>
 
-          <For each={reservations()}>
-            {(reservation) => <ReservationBlock reservation={reservation} />}
+                <For each={reservation}>
+                  {(reservation) => (
+                    <ReservationBlock reservation={reservation} />
+                  )}
+                </For>
+              </div>
+            )}
           </For>
         </Suspense>
       </section>
@@ -84,7 +113,9 @@ function ReservationBlock(props: { reservation: ReservationResponse }) {
   return (
     <div
       class={
-        deling.pending ? "opacity-50 pointer-events-none cursor-progress" : ""
+        deling.pending || changing.pending
+          ? "opacity-50 pointer-events-none cursor-progress"
+          : ""
       }
     >
       <Card

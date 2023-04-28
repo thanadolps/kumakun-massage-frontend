@@ -1,5 +1,6 @@
 import axios from "axios";
 const API_URL = "http://localhost:5555/api/v1/auth/";
+
 //Register user
 const register = async (userData: RegisterRequest) => {
   const response = await axios.post<RegisterResponse>(
@@ -27,9 +28,38 @@ const login = async (userData: LoginRequest) => {
 const logout = () => {
   localStorage.setItem("user", "");
 };
+
+function authHeader(token?: string) {
+  if (token === undefined) {
+    token = localStorage.getItem("user") || "";
+  }
+
+  return token
+    ? {
+        Authorization: "Bearer " + localStorage.getItem("user"),
+      }
+    : {};
+}
+//Get me
+const getMe = async () => {
+  const token = localStorage.getItem("user");
+  if (!token) {
+    return null;
+  }
+  const response = await axios.get<ResultResponse<{ data: UserData }>>(
+    API_URL + "me",
+    {
+      headers: authHeader(),
+    }
+  );
+  return response.data;
+};
+
 const authService = {
   register,
   logout,
   login,
+  getMe,
+  authHeader,
 };
 export default authService;
