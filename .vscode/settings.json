@@ -1,7 +1,9 @@
 {
-  "marquee.widgets.npm-stats.packageNames": [
-    "kumakun-massage-frontend"
-  ],
-  "typescript.tsdk": "node_modules/.pnpm/typescript@5.0.4/node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "marquee.widgets.npm-stats.packageNames": ["kumakun-frontend-2"]
 }
