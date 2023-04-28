@@ -1,21 +1,29 @@
-import { Show, type VoidComponent } from "solid-js";
+import { Match, Show, type VoidComponent } from "solid-js";
 import { A } from "solid-start";
 import {
   FaSolidCircleQuestion,
   FaSolidLock,
   FaSolidTicket,
 } from "solid-icons/fa";
-import logo from "../images/logo/2.png";
+
 import { useStore } from "@nanostores/solid";
 import { authStore } from "~/features/auth/authStore";
 
 const Home: VoidComponent = () => {
   const auth = useStore(authStore);
 
+  // Randomly choose a logo
+  const logoId = Math.floor(3 * Math.random() + 1);
+
   return (
     <>
       <section class="heading">
-        <img src={logo} alt="KumaKun Icon" width={256} height={256} />
+        <img
+          src={`/logo/${logoId}.png`}
+          alt="KumaKun Icon"
+          width={256}
+          height={256}
+        />
         <h1>KumaKun: A Massage Reservation System</h1>
         <p>Please choose from an option below</p>
       </section>

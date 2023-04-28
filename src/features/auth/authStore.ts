@@ -10,7 +10,10 @@ type State = {
 };
 
 const initialState: State = {
-  user: (await authService.getMe())?.data ?? null,
+  user: await authService
+    .getMe()
+    .then((res) => res?.data ?? null)
+    .catch((err) => null),
   isError: false,
   isSuccess: false,
   isLoading: false,
