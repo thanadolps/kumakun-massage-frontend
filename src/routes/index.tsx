@@ -13,11 +13,11 @@ const Home: VoidComponent = () => {
   const auth = useStore(authStore);
 
   // Randomly choose a logo
-  const logoId = Math.floor(3 * Math.random() + 1);
+  const logoId = Math.floor(4 * Math.random() + 1);
 
   return (
     <>
-      <section class="heading">
+      <section class="heading text-center flex flex-col items-center w-full">
         <img
           src={`/logo/${logoId}.png`}
           alt="KumaKun Icon"

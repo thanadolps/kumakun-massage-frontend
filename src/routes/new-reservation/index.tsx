@@ -9,9 +9,9 @@ export default function ReservationMenu() {
 
   return (
     <>
-      <section class="heading">
+      <section class="heading text-center">
         <h1>
-          <FaSolidCircleQuestion /> Create New Reservation
+          <FaSolidCircleQuestion class="inline" /> Create New Reservation
         </h1>
       </section>
       <main>
