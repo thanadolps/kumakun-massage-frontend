@@ -1,13 +1,11 @@
 import axios from "axios";
-import { authStore } from "../auth/authStore";
+import authService from "../auth/authService";
 const API_URL = `${import.meta.env.VITE_BACKEND_URL}/api/v1/calendar/`;
 
 const getSchedule = async () => {
   const response = await axios.get(API_URL, {
     responseType: "blob",
-    headers: {
-      Authorization: `Bearer ${authStore.get().user}`,
-    },
+    headers: authService.authHeader(),
   });
   return response.data;
 };
