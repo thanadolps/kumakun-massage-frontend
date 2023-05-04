@@ -180,11 +180,7 @@ function ReservationBlock(props: { reservation: ReservationResponse }) {
               {new Date(props.reservation.datetime).toLocaleString("th")}
             </span>{" "}
             <span>
-              (
-              {timeAgo.format(
-                Date.parse(props.reservation.datetime) - Date.now()
-              )}
-              )
+              ({timeAgo.format(Date.parse(props.reservation.datetime))})
             </span>
           </div>
 
