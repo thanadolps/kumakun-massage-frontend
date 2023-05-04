@@ -58,11 +58,24 @@ const getMe = async () => {
   return response.data;
 };
 
+// Resend verification email
+const resendVerificationEmail = async () => {
+  const response = await axios.post(
+    API_URL + "verify/resend",
+    {},
+    {
+      headers: authHeader(),
+    }
+  );
+  return response.data;
+};
+
 const authService = {
   register,
   logout,
   login,
   getMe,
+  resendVerificationEmail,
   authHeader,
 };
 export default authService;

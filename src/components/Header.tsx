@@ -5,6 +5,8 @@ import { useStore } from "@nanostores/solid";
 import { authStore, logout, reset } from "../features/auth/authStore";
 import scheduleService from "../features/reservation/schedule";
 import { createEffect, createSignal, onCleanup, Show } from "solid-js";
+import authService from "~/features/auth/authService";
+import toast from "solid-toast";
 
 const bannerPool = [
   "Love",
@@ -53,6 +55,19 @@ export default function Header() {
   onCleanup(() => {
     clearInterval(timer);
   });
+
+  const [sendingVerification, setSendingVerification] = createSignal(false);
+  async function resendVerification() {
+    setSendingVerification(true);
+    try {
+      await authService.resendVerificationEmail();
+      toast.success("Verification email has been sent, check the inbox");
+    } catch (err) {
+      console.error(err);
+      toast.error(`Failed to send verification email: ${err}`);
+    }
+    setSendingVerification(false);
+  }
 
   return (
     <>
@@ -103,6 +118,13 @@ export default function Header() {
             You has not been verified, some features may be restricted. Please
             check the email for verification link.
           </p>
+          <button
+            class="btn btn-sm m-auto btn-invert"
+            onClick={resendVerification}
+            disabled={sendingVerification()}
+          >
+            Resend verification email
+          </button>
         </section>
       </Show>
     </>
