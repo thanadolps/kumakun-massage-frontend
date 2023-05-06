@@ -82,7 +82,15 @@ export default function Header() {
           {auth().user ? (
             <>
               <li>
-                <button onClick={scheduleService.downloadSchedule}>
+                <button
+                  disabled={!auth().user?.isVerified}
+                  onClick={scheduleService.downloadSchedule}
+                  class={
+                    auth().user?.isVerified
+                      ? ""
+                      : "opacity-50 cursor-not-allowed"
+                  }
+                >
                   <FaSolidCalendar />
                 </button>
               </li>
