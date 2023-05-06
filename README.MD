@@ -1,5 +1,10 @@
 Frontend for [KumaKunMassage](https://github.com/TuchthamSung086/KumaKunMassage) for SW DEV PRAC 2022 By Tuchtham Sungkameka, Thanadol Chitthamlerd
 
+## Deployments
+
+- Frontend: https://kumakun-massage-frontend-production.up.railway.app/new-reservation/643e1cf70bc7bd34993d892e
+- Backend: https://kumakunmassage-production.up.railway.app/
+
 ## Project Details
 
 Project#8: Massage Reservation
