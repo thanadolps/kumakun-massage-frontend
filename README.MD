@@ -2,7 +2,7 @@ Frontend for [KumaKunMassage](https://github.com/TuchthamSung086/KumaKunMassage)
 
 ## Deployments
 
-- Frontend: https://kumakun-massage-frontend-production.up.railway.app/new-reservation/643e1cf70bc7bd34993d892e
+- Frontend: https://kumakun-massage-frontend-production.up.railway.app/
 - Backend: https://kumakunmassage-production.up.railway.app/
 
 ## Project Details
