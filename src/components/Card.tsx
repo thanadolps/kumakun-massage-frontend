@@ -3,23 +3,15 @@ import type { JSXElement } from "solid-js";
 import { A } from "solid-start";
 
 export default function Card(props: {
-  href: string;
+  href?: string;
   shop: MassageShop;
   interactive?: boolean;
   actions?: JSXElement;
 }) {
   const interactive = () => props.interactive ?? true;
 
-  return (
-    <A
-      href={props.href}
-      class={
-        "text-left border-2 border-gray-700 rounded-lg flex flex-col p-2 cursor-default" +
-        (interactive()
-          ? "transition-transform duration-75 hover:scale-105 hover:translate-x-1 hover:translate-y-1 hover:rotate-1 cursor-pointer"
-          : "")
-      }
-    >
+  const cardContent = (
+    <>
       <h1 class="text-xl font-bold">{props.shop.name}</h1>
       <p>
         <FaSolidMap class="inline" />
@@ -38,7 +30,25 @@ export default function Card(props: {
           props.shop.closetime
         )}`}
       </p>
-    </A>
+    </>
+  );
+
+  const cardClass = () =>
+    "text-left border-2 border-gray-700 rounded-lg flex flex-col p-2 cursor-default" +
+    (interactive()
+      ? "transition-transform duration-75 hover:scale-105 hover:translate-x-1 hover:translate-y-1 hover:rotate-1 cursor-pointer"
+      : "");
+
+  return (
+    <>
+      {props.href ? (
+        <A href={props.href} class={cardClass()}>
+          {cardContent}
+        </A>
+      ) : (
+        <div class={cardClass()}>{cardContent}</div>
+      )}
+    </>
   );
 }
 

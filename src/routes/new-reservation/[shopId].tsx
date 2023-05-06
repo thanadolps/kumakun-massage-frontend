@@ -17,9 +17,7 @@ export default function Reservation() {
 
       <section class="my-8">
         <Show when={shop()}>
-          {(shop) => (
-            <Card shop={shop()} interactive={false} href={`${shop().id}`} />
-          )}
+          {(shop) => <Card shop={shop()} interactive={false} />}
         </Show>
       </section>
 
